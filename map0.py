@@ -29,4 +29,6 @@ for age in ages:
 
 out['rate'] = (out['celkem'] / out['počet obyv.'].str.replace(' ', '').astype(int) * 100).round(2)
 
+del out['pretty_name']
+
 out.to_csv('municipalities.csv', index=False)
