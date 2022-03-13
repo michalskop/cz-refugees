@@ -10,7 +10,9 @@ origin = pd.read_csv('origin.csv')
 # todate = today.strftime('%d-%m-%Y')
 
 fname = 'Strpeni-UKR_-_k_10-03-2022.xlsx'
-fname = 'Strpění_UKR_12_3_2022.xlsx'
+fname = 'Strpění_UKR_13_3_2022.xlsx'
+
+# municipalities
 data = pd.read_excel('data/' + fname)
 values = data.columns[4:]
 pt = pd.pivot_table(data, values=values, index=['obec', 'okres'], aggfunc=np.sum)
@@ -27,8 +29,26 @@ for age in ages:
 			selected.append(g + "_" + age)
 	out[age] = out.loc[:, selected].sum(axis=1)
 
+
 out['rate'] = (out['celkem'] / out['počet obyv.'].str.replace(' ', '').astype(int) * 100).round(2)
 
 del out['pretty_name']
+out['celkem'] = out['celkem'].astype(int)
 
 out.to_csv('municipalities.csv', index=False)
+
+# regions
+origino = pd.read_csv('origin_okresy.csv')
+
+out['population'] = out['počet obyv.'].str.replace(' ', '').astype(int)
+
+pto = pd.pivot_table(out, values=(list(values) + ages + ['population']), index='district' , aggfunc=np.sum).reset_index()
+
+pto['celkem'] = pto['celkem'].astype(int)
+pto['population'] = pto['population'].astype(int)
+
+outo = origino.merge(pto, how="left", left_on='name', right_on='district').fillna(0)
+
+outo['rate'] = (outo['celkem'] / outo['population'] * 100).round(2)
+
+outo.to_csv('districts.csv', index=False, columns=(list(origino.columns) + ['population', 'rate'] + list(values) + ages))
