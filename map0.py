@@ -11,6 +11,7 @@ origin = pd.read_csv('origin.csv')
 
 fname = 'Strpeni-UKR_-_k_10-03-2022.xlsx'
 fname = 'Strpění_UKR_13_3_2022.xlsx'
+fname = 'strpeni-UKR_-_k_14-03-2022.xlsx'
 
 # municipalities
 data = pd.read_excel('data/' + fname)
