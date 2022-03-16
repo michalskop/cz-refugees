@@ -1,6 +1,6 @@
 """Prepare first data for a map."""
 
-import datetime
+# import datetime
 import pandas as pd
 import numpy as np
 
@@ -11,11 +11,11 @@ origin = pd.read_csv('origin.csv')
 
 fname = 'Strpeni-UKR_-_k_10-03-2022.xlsx'
 fname = 'Strpění_UKR_13_3_2022.xlsx'
-fname = 'strpeni-UKR_-_k_14-03-2022.xlsx'
+fname = 'Statistika_UKR_16_03_2022.xlsx'
 
 # municipalities
 data = pd.read_excel('data/' + fname)
-values = data.columns[4:]
+values = data.columns[5:]	# added municipality codes
 pt = pd.pivot_table(data, values=values, index=['obec', 'okres'], aggfunc=np.sum)
 
 out = origin.merge(pt, how="left", left_on=['district', 'name'], right_on=['okres', 'obec']).fillna(0)
