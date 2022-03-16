@@ -1,6 +1,6 @@
 """Prepare first data for a map."""
 
-# import datetime
+import datetime
 import pandas as pd
 import numpy as np
 
@@ -12,6 +12,9 @@ origin = pd.read_csv('origin.csv')
 fname = 'Strpeni-UKR_-_k_10-03-2022.xlsx'
 fname = 'Strpění_UKR_13_3_2022.xlsx'
 fname = 'Statistika_UKR_16_03_2022.xlsx'
+
+today = (datetime.datetime.today())
+todate = today.strftime("%-d. %-m. %Y")
 
 # municipalities
 data = pd.read_excel('data/' + fname)
@@ -35,6 +38,7 @@ out['rate'] = (out['celkem'] / out['počet obyv.'].str.replace(' ', '').astype(i
 
 del out['pretty_name']
 out['celkem'] = out['celkem'].astype(int)
+out['date'] = todate
 
 out.to_csv('municipalities.csv', index=False)
 
@@ -52,4 +56,6 @@ outo = origino.merge(pto, how="left", left_on='name', right_on='district').filln
 
 outo['rate'] = (outo['celkem'] / outo['population'] * 100).round(2)
 
-outo.to_csv('districts.csv', index=False, columns=(list(origino.columns) + ['population', 'rate'] + list(values) + ages))
+outo['date'] = todate
+
+outo.to_csv('districts.csv', index=False, columns=(list(origino.columns) + ['population', 'rate'] + list(values) + ages + ['date']))
