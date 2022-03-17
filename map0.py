@@ -11,7 +11,7 @@ origin = pd.read_csv('origin.csv')
 
 fname = 'Strpeni-UKR_-_k_10-03-2022.xlsx'
 fname = 'Strpění_UKR_13_3_2022.xlsx'
-fname = 'Statistika_UKR_16_03_2022.xlsx'
+fname = 'Statistika_UKR_17_03_2022.xlsx'
 
 today = (datetime.datetime.today())
 todate = today.strftime("%-d. %-m. %Y")
