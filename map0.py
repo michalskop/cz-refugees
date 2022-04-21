@@ -9,7 +9,7 @@ origin = pd.read_csv('origin.csv')
 # today = datetime.datetime.today()
 # todate = today.strftime('%d-%m-%Y')
 
-fname = 'Statistika_UKR_19-04-2022.xlsx'
+fname = 'Statistika_UKR_21-04-2022.xlsx'
 
 today = (datetime.datetime.today())
 todate = today.strftime("%-d. %-m. %Y")
